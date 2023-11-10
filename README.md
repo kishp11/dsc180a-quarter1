@@ -1,7 +1,6 @@
 dsc180a-quarter1
 ==============================
 
-# dsc180a-quarter1
 Quarter 1 research duplication for DSC 180A at UCSD
 Quarter 1 Antimicrobal Peptide Project 
 
