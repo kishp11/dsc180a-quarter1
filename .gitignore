@@ -89,5 +89,5 @@ target/
 .mypy_cache/
 
 # Other
-src/checkpointcode.py
 random_testing.py
+src/features/build_features.py
