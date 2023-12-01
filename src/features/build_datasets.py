@@ -103,6 +103,8 @@ def create_dataset(dataset_type):
     elif dataset_type == 'evaluate':
         positive_file = read('./data/raw/AMP.eval.fa')
         negative_file = read('./data/raw/DECOY.eval.fa')
+    else:
+        raise KeyError('Type must be "train", "evaluate" or "test"')
 
     dataset = tf.data.Dataset.from_generator(
         Dataset(positive_file, negative_file, batch_size = batch_size, training=training),

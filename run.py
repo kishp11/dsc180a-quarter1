@@ -13,6 +13,8 @@ if __name__ == '__main__':
     if 'train' in args:
         training_dataset = build.create_dataset('train') # train, eval, test
         model = train_model.train_model(training_dataset)
+    else:
+        model = train_model.load_model()
     
     if 'test' in args:
         test_dataset = build.create_dataset('test')
