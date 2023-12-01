@@ -1,12 +1,15 @@
-dsc180a-quarter1
+dsc180a-quarter1 Group A06 Antimicrobial Peptide Project 
 ==============================
 
 Quarter 1 research duplication for DSC 180A at UCSD
-Quarter 1 Antimicrobal Peptide Project 
 
-Link to dataset: https://www.dveltri.com/ascan/v2/data/AMP_Scan2_OrigPaper_Dataset.zip
-Data is pre-separated in to train/validate/test splits
-AMP files are positively labeled, DUMMY files are negatively labeled
+
+INSTRUCTIONS:
+
+To run the model, run the run.py file.
+    run.py accepts two arguments "train" and "predict"
+    argument "train" will train the model
+    argument "predict" will test the model, printing the accuracy and loss
 
 
 Project Organization
@@ -53,9 +56,6 @@ Project Organization
 
 --------
 
-INSTRUCTIONS:
-
-To run the model, run the run.py file.
-    run.py accepts two arguments "train" and "predict"
-    argument "train" will train the model
-    argument "predict" will test the model, printing the accuracy and loss
+Link to dataset: https://www.dveltri.com/ascan/v2/data/AMP_Scan2_OrigPaper_Dataset.zip
+Data is pre-separated in to train/validate/test splits
+AMP files are positively labeled, DUMMY files are negatively labeled
