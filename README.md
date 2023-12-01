@@ -7,8 +7,11 @@ Quarter 1 research duplication for DSC 180A at UCSD
 **INSTRUCTIONS:**
 
 To run the model, run the run.py file.
+
     run.py accepts two arguments "train" and "predict"
+    
     argument "train" will train the model
+    
     argument "predict" will test the model, printing the accuracy and loss
 
 
