@@ -2,7 +2,9 @@ import keras
 from keras import layers
 import sys
 
-def train_model(data_train, batch_size=8):
+checkpoint_filepath = 'src/models/checkpoints/model_weights'
+
+def __create_model():
     model = keras.Sequential(
         [
             layers.Embedding(200, 128, input_shape = (200,), name="embed"),
@@ -15,5 +17,20 @@ def train_model(data_train, batch_size=8):
 
     adam = keras.optimizers.Adam()
     model.compile(loss='binary_crossentropy', metrics = 'accuracy', optimizer=adam)
-    model.fit(data_train, batch_size = batch_size, epochs = 10)
+
+    return model
+
+def train_model(data_train, batch_size=8, epochs=10, save_checkpoint=True):
+    model = __create_model()
+
+    model.fit(data_train, batch_size=batch_size, epochs=epochs)
+
+    if save_checkpoint:
+        model.save_weights(checkpoint_filepath)
+
+    return model
+
+def load_model():
+    model = __create_model()
+    model.load_weights(checkpoint_filepath).expect_partial()
     return model
