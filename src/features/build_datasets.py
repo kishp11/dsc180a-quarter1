@@ -1,5 +1,5 @@
 import numpy as np
-import tensorflow as tf # TODO: import only necessary classes
+from tensorflow import TensorSpec, data, int32
 
 batch_size = 8
 
@@ -106,11 +106,11 @@ def create_dataset(dataset_type):
     else:
         raise KeyError('Type must be "train", "evaluate" or "test"')
 
-    dataset = tf.data.Dataset.from_generator(
+    dataset = data.Dataset.from_generator(
         Dataset(positive_file, negative_file, batch_size = batch_size, training=training),
         output_signature=(
-            tf.TensorSpec(shape=(batch_size, 200), dtype=tf.int32),
-            tf.TensorSpec(shape=(batch_size), dtype=tf.int32)
+            TensorSpec(shape=(batch_size, 200), dtype=int32),
+            TensorSpec(shape=(batch_size), dtype=int32)
         )
     )
 
