@@ -52,4 +52,9 @@ Project Organization
 
 --------
 
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+INSTRUCTIONS:
+
+To run the model, run the run.py file.
+    run.py accepts two arguments "train" and "predict"
+    argument "train" will train the model
+    argument "predict" will test the model, printing the accuracy and loss
