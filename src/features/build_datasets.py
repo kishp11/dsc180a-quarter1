@@ -1,7 +1,7 @@
 import numpy as np
 import tensorflow as tf # TODO: import only necessary classes
 
-batch_size = 12
+batch_size = 8
 
 def read(filepath:str, label=None) -> list:
     '''
@@ -59,7 +59,8 @@ class Dataset:
             self.data_train.append((conv_amino_to_vector(padded), 0))
         self.indices = np.arange(len(self.data_train))
 
-        if training:
+        self.training = training
+        if self.training:
             np.random.shuffle(self.indices)
         
     def __len__(self):
@@ -82,15 +83,29 @@ class Dataset:
             self.on_epoch_end()
 
     def on_epoch_end(self):
-        np.random.shuffle(self.indices)
+        if self.training:
+            np.random.shuffle(self.indices)
 
-def create_dataset(positive_file, negative_file):
+def create_dataset(dataset_type):
     """
     Input: Open files of positive and negatively labeled data
     Output: Tensorflow Dataset
     """
+
+    training = False
+    if dataset_type == 'train':
+        positive_file = read('./data/raw/AMP.tr.fa')
+        negative_file = read('./data/raw/DECOY.tr.fa')
+        training = True
+    elif dataset_type == 'test':
+        positive_file = read('./data/raw/AMP.te.fa')
+        negative_file = read('./data/raw/DECOY.te.fa')
+    elif dataset_type == 'evaluate':
+        positive_file = read('./data/raw/AMP.eval.fa')
+        negative_file = read('./data/raw/DECOY.eval.fa')
+
     dataset = tf.data.Dataset.from_generator(
-        Dataset(positive_file, negative_file, batch_size = batch_size),
+        Dataset(positive_file, negative_file, batch_size = batch_size, training=training),
         output_signature=(
             tf.TensorSpec(shape=(batch_size, 200), dtype=tf.int32),
             tf.TensorSpec(shape=(batch_size), dtype=tf.int32)

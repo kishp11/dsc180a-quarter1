@@ -2,9 +2,7 @@
 -e .
 
 # external requirements
-click
-Sphinx
-coverage
-awscli
-flake8
+# click
+# coverage
+# awscli
 python-dotenv>=0.5.1
