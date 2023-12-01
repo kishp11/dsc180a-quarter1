@@ -55,7 +55,11 @@ def writefile(features, outfile):
         csvwriter.writerows(features)
 
 def build_features(directory='data/raw/', output_directory = 'data/processed/'):
-    """Creates labeled train/test/split sets and saves in data/processed"""
+    """
+    Creates labeled train/test/split sets and saves in data/processed
+    
+    
+    """
     for filename in os.listdir(directory):
         if filename == '.gitkeep':
             # ignore this file
