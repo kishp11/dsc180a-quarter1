@@ -1,6 +1,5 @@
 import keras
 from keras import layers
-import sys
 
 checkpoint_filepath = 'src/models/checkpoints/model_weights'
 
