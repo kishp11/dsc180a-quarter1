@@ -1,28 +1,37 @@
-import sys
+import argparse
 
 import src.features.build_datasets as build
 import src.models.train_model as train_model
 import src.models.predict_model as predict
 
-if __name__ == '__main__':
-    args = sys.argv[1:]
-    
-    if len(args) == 0:
-        args = ['predict']
+def main():
+    parser = argparse.ArgumentParser(description='Train, test, and predict using a model.')
+    parser.add_argument('--mode', choices=['train', 'test', 'predict'], nargs='+', default=['predict'], help='Specify the mode(s) to run (train, test, predict)')
 
-    if 'train' in args:
+    # Add other arguments as needed
+    # parser.add_argument('--save', action='store_true', help='Toggle checkpoint saving')
+    parser.add_argument('--f', help='Specify the file path for .fa file when mode is predict')
+
+    args = parser.parse_args()
+
+    if 'train' in args.mode:
         # TODO: Add --save argument to toggle checkpoint saving
-        training_dataset = build.create_dataset('train') # train, eval, test
+        training_dataset = build.create_dataset('train')  # train, eval, test
         model = train_model.train_model(training_dataset)
     else:
         model = train_model.load_model()
     
-    if 'test' in args:
+    if 'test' in args.mode:
         test_dataset = build.create_dataset('test')
         accuracy = predict.evaluate_model(model, test_dataset)
-        print(accuracy)
+        print(f'Test Accuracy: {accuracy}')
 
-    if 'predict' in args:
-        # TODO: input a file or peptide string and make a prediction on it
-        # Given a file, output predictions
-        print(predict.predict_from_file(model, 'data/raw/AMp.te.fa'))
+    if 'predict' in args.mode:
+        if args.f is None:
+            parser.error('--mode predict requires a filepath to be specified with --f')
+        else:
+            # Given a file, output predictions
+            print(predict.predict_from_file(model, args.f))
+
+if __name__ == '__main__':
+    main()
