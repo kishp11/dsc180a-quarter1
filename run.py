@@ -8,9 +8,10 @@ if __name__ == '__main__':
     args = sys.argv[1:]
     
     if len(args) == 0:
-        args = ['train', 'test']
+        args = ['predict']
 
     if 'train' in args:
+        # TODO: Add --save argument to toggle checkpoint saving
         training_dataset = build.create_dataset('train') # train, eval, test
         model = train_model.train_model(training_dataset)
     else:
@@ -23,4 +24,5 @@ if __name__ == '__main__':
 
     if 'predict' in args:
         # TODO: input a file or peptide string and make a prediction on it
-        ...
+        # Given a file, output predictions
+        print(predict.predict_from_file(model, 'data/raw/AMp.te.fa'))

@@ -1,5 +1,5 @@
 import numpy as np
-import tensorflow as tf # TODO: import only necessary classes
+from tensorflow import TensorSpec, data, int32
 
 batch_size = 8
 
@@ -45,6 +45,14 @@ def conv_amino_to_vector(sequence):
     }
 
     return [conversion_dict[c] for c in sequence]
+
+def vectorize(filepath):
+    sequences = read(filepath)
+    vectors = []
+    for i in sequences:
+        padded = i.rjust(200, 'X')
+        vectors.append(conv_amino_to_vector(padded))
+    return vectors
 
 class Dataset:
     def __init__(self, positive_file, negative_file, batch_size=32, training=False):
@@ -106,11 +114,11 @@ def create_dataset(dataset_type):
     else:
         raise KeyError('Type must be "train", "evaluate" or "test"')
 
-    dataset = tf.data.Dataset.from_generator(
+    dataset = data.Dataset.from_generator(
         Dataset(positive_file, negative_file, batch_size = batch_size, training=training),
         output_signature=(
-            tf.TensorSpec(shape=(batch_size, 200), dtype=tf.int32),
-            tf.TensorSpec(shape=(batch_size), dtype=tf.int32)
+            TensorSpec(shape=(batch_size, 200), dtype=int32),
+            TensorSpec(shape=(batch_size), dtype=int32)
         )
     )
 
