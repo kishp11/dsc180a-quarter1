@@ -46,6 +46,14 @@ def conv_amino_to_vector(sequence):
 
     return [conversion_dict[c] for c in sequence]
 
+def vectorize(filepath):
+    sequences = read(filepath)
+    vectors = []
+    for i in sequences:
+        padded = i.rjust(200, 'X')
+        vectors.append(conv_amino_to_vector(padded))
+    return vectors
+
 class Dataset:
     def __init__(self, positive_file, negative_file, batch_size=32, training=False):
         self.batch_size = batch_size # specifies how big to make batch
