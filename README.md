@@ -6,10 +6,12 @@ Quarter 1 research duplication for DSC 180A at UCSD
 
 **INSTRUCTIONS:**
 
-To run the model, run the run.py file.
-    run.py accepts two arguments "train" and "predict"
-    argument "train" will train the model
-    argument "predict" will test the model, printing the accuracy and loss
+To run the model, run the run.py file with python run.py
+    run.py has --mode to select train, test, and predict
+        argument "train" will train the model
+        argument "test" will test the model, printing the accuracy and loss
+        argument "predict" will output peptide predictions for a given .fa file
+            "predict" requires an extra argument '--f' to specify a filepath to a .fa file
 
 
 Project Organization
