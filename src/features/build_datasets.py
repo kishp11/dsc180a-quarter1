@@ -47,6 +47,8 @@ def conv_amino_to_vector(sequence):
     return [conversion_dict[c] for c in sequence]
 
 def vectorize(filepath):
+    # Used to convert a single file into vector format
+    # Useful for run.py --mode predict
     sequences = read(filepath)
     vectors = []
     for i in sequences:
@@ -96,7 +98,7 @@ class Dataset:
 
 def create_dataset(dataset_type):
     """
-    Input: Open files of positive and negatively labeled data
+    Input: dataset type
     Output: Tensorflow Dataset
     """
 
