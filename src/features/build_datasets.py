@@ -57,16 +57,18 @@ def vectorize(filepath):
     return vectors
 
 class Dataset:
-    def __init__(self, positive_file, negative_file, batch_size=32, training=False):
+    def __init__(self, positive_files, negative_files, batch_size=32, training=False):
         self.batch_size = batch_size # specifies how big to make batch
         self.data_train = []
 
-        for i in positive_file:
-            padded = i.rjust(200, 'X')
-            self.data_train.append((conv_amino_to_vector(padded), 1))
-        for i in negative_file:
-            padded = i.rjust(200, 'X')
-            self.data_train.append((conv_amino_to_vector(padded), 0))
+        for positive_file in positive_files:
+            for i in positive_file:
+                padded = i.rjust(200, 'X')
+                self.data_train.append((conv_amino_to_vector(padded), 1))
+        for negative_file in negative_files:
+            for i in negative_file:
+                padded = i.rjust(200, 'X')
+                self.data_train.append((conv_amino_to_vector(padded), 0))
         self.indices = np.arange(len(self.data_train))
 
         self.training = training
@@ -96,28 +98,30 @@ class Dataset:
         if self.training:
             np.random.shuffle(self.indices)
 
-def create_dataset(dataset_type):
+def create_dataset(dataset_types):
     """
     Input: dataset type
     Output: Tensorflow Dataset
     """
 
+    positive_files = []
+    negative_files = []
     training = False
-    if dataset_type == 'train':
-        positive_file = read('./data/raw/AMP.tr.fa')
-        negative_file = read('./data/raw/DECOY.tr.fa')
+    if 'train' in dataset_types:
+        positive_files.append(read('./data/raw/AMP.tr.fa'))
+        negative_files.append(read('./data/raw/DECOY.tr.fa'))
         training = True
-    elif dataset_type == 'test':
-        positive_file = read('./data/raw/AMP.te.fa')
-        negative_file = read('./data/raw/DECOY.te.fa')
-    elif dataset_type == 'evaluate':
-        positive_file = read('./data/raw/AMP.eval.fa')
-        negative_file = read('./data/raw/DECOY.eval.fa')
+    elif 'test' in dataset_types:
+        positive_files.append(read('./data/raw/AMP.te.fa'))
+        negative_files.append(read('./data/raw/DECOY.te.fa'))
+    elif 'evaluate' in dataset_types:
+        positive_files.append(read('./data/raw/AMP.eval.fa'))
+        negative_files.append(read('./data/raw/DECOY.eval.fa'))
     else:
         raise KeyError('Type must be "train", "evaluate" or "test"')
 
     dataset = data.Dataset.from_generator(
-        Dataset(positive_file, negative_file, batch_size = batch_size, training=training),
+        Dataset(positive_files, negative_files, batch_size = batch_size, training=training),
         output_signature=(
             TensorSpec(shape=(batch_size, 200), dtype=int32),
             TensorSpec(shape=(batch_size), dtype=int32)
