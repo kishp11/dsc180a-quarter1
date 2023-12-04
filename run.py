@@ -6,10 +6,15 @@ import src.models.predict_model as predict
 
 def main():
     parser = argparse.ArgumentParser(description='Train, test, and predict using a model.')
-    parser.add_argument('--mode', choices=['train', 'test', 'predict'], nargs=1, default=['predict'], help='Specify the mode(s) to run (train, test, predict)')
+    parser.add_argument('--mode', choices=['train', 'test', 'predict'], nargs='+', default=['predict'], help='Specify the mode(s) to run (train, test, predict)')
 
-    # define which datasets to use
-    parser.add_argument('--d', choices=['train', 'test', 'evaluate'], nargs='+', default=['train'], help='Specify which datasets to use [train, test, evaluate]')
+    # Sub-argument for train mode
+    train_parser = parser.add_argument_group('train mode options')
+    train_parser.add_argument('--trainset', choices=['train', 'test', 'eval'], nargs='+', default=['train'], help='Specify the subset(s) of the data to use in training')
+
+    # Sub-argument for test mode
+    test_parser = parser.add_argument_group('test mode options')
+    test_parser.add_argument('--testset', choices=['train', 'test', 'eval'], nargs='+', default=['train'], help='Specify the subset(s) of the data to use in testing')
 
     # Add other arguments as needed
     # parser.add_argument('--save', action='store_true', help='Toggle checkpoint saving')
@@ -19,13 +24,13 @@ def main():
 
     if 'train' in args.mode:
         # TODO: Add --save argument to toggle checkpoint saving
-        training_dataset = build.create_dataset(args.d)  # train, eval, test
+        training_dataset = build.create_dataset(args.trainset)  # train, eval, test
         model = train_model.train_model(training_dataset)
     else:
         model = train_model.load_model()
     
     if 'test' in args.mode:
-        test_dataset = build.create_dataset(args.d)
+        test_dataset = build.create_dataset(args.testset)
         accuracy = predict.evaluate_model(model, test_dataset)
         print(f'Test Accuracy: {accuracy}')
 
