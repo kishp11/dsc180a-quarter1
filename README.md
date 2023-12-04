@@ -4,38 +4,42 @@ dsc180a-quarter1 Group A06 Antimicrobial Peptide Project
 Quarter 1 research duplication for DSC 180A at UCSD
 
 
-**INSTRUCTIONS:**
+# **INSTRUCTIONS:**
+### Installation
+Download git repo
 
-To run the model, run the run.py file with ``python run.py``
-    run.py has --mode to select train, test, and predict
-        argument "train" will train the model
-        argument "test" will test the model, printing the accuracy and loss
-        argument "predict" will output peptide predictions for a given .fa file
-            "predict" requires an extra argument '--f' to specify a filepath to a .fa file
+`pip install -r requirements.txt`
 
-    :: USAGE
-        usage: run.py [-h] [--mode {train,test,predict} [{train,test,predict} ...]] [--trainset {train,test,evaluate} [{train,test,evaluate} ...]] [--save {True,False}] [--testset {train,test,evaluate} [{train,test,evaluate} ...]]
-              [--f F]
-        
-        optional arguments:
-          -h, --help            show this help message and exit
-          --mode {train,test,predict} [{train,test,predict} ...]
-                                Specify the mode(s) to run (train, test, predict)
-        
-        train mode options:
-          --trainset {train,test,evaluate} [{train,test,evaluate} ...]
-                                Specify the subset(s) of the data to use in training
-          --save {True,False}   Choose whether to save the model weights
-        
-        test mode options:
-          --testset {train,test,evaluate} [{train,test,evaluate} ...]
-                                Specify the subset(s) of the data to use in testing
-        
-        predict mode options:
-          --f F                 Specify the file path for .fa file
+### Usage
+To run the model, run the run.py file with:
+
+`python run.py`
 
 
-Project Organization
+Command Line usage:
+
+      usage: run.py [-h] [--mode {train,test,predict} [{train,test,predict} ...]] [--trainset {train,test,evaluate} [{train,test,evaluate} ...]] [--save] [--testset {train,test,evaluate} [{train,test,evaluate} ...]] [--f F] [--p]
+
+      optional arguments:
+      -h, --help            show this help message and exit
+      --mode {train,test,predict} [{train,test,predict} ...]
+                              Specify the mode(s) to run (train, test, predict)
+
+      train mode options:
+      --trainset {train,test,evaluate} [{train,test,evaluate} ...]
+                              Specify the subset(s) of the data to use in training
+      --save                [Optional] Choose whether to save the model weights
+
+      test mode options:
+      --testset {train,test,evaluate} [{train,test,evaluate} ...]
+                              Specify the subset(s) of the data to use in testing
+
+      predict mode options:
+      --f F                 Specify the file path for .fa file
+      --p                   [Optional] Choose whether to print predictions to console
+
+
+File Organization
 ------------
 
     ├── LICENSE
