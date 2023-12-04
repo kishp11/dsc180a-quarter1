@@ -10,11 +10,11 @@ def main():
 
     # Sub-argument for train mode
     train_parser = parser.add_argument_group('train mode options')
-    train_parser.add_argument('--trainset', choices=['train', 'test', 'eval'], nargs='+', default=['train'], help='Specify the subset(s) of the data to use in training')
+    train_parser.add_argument('--trainset', choices=['train', 'test', 'evaluate'], nargs='+', default=['train'], help='Specify the subset(s) of the data to use in training')
 
     # Sub-argument for test mode
     test_parser = parser.add_argument_group('test mode options')
-    test_parser.add_argument('--testset', choices=['train', 'test', 'eval'], nargs='+', default=['train'], help='Specify the subset(s) of the data to use in testing')
+    test_parser.add_argument('--testset', choices=['train', 'test', 'evaluate'], nargs='+', default=['train'], help='Specify the subset(s) of the data to use in testing')
 
     # Add other arguments as needed
     # parser.add_argument('--save', action='store_true', help='Toggle checkpoint saving')
