@@ -13,7 +13,7 @@ To run the model, run the run.py file with ``python run.py``
         argument "predict" will output peptide predictions for a given .fa file
             "predict" requires an extra argument '--f' to specify a filepath to a .fa file
 
-    ::
+    :: USAGE
         usage: run.py [-h] [--mode {train,test,predict} [{train,test,predict} ...]] [--trainset {train,test,evaluate} [{train,test,evaluate} ...]] [--save {True,False}] [--testset {train,test,evaluate} [{train,test,evaluate} ...]]
               [--f F]
         
