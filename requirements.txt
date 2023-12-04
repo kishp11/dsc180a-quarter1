@@ -1,8 +1,5 @@
-# local package
--e .
-
-# external requirements
-# click
-# coverage
-# awscli
-python-dotenv>=0.5.1
+keras==2.10.0
+numpy==1.22.2
+setuptools==58.0.4
+tensorflow==2.10.1
+tensorflow_intel==2.12.0
