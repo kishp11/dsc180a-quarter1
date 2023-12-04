@@ -1,4 +1,4 @@
-dsc180a-quarter1 Group A06 Antimicrobial Peptide Project 
+DSC180A Group A06 Antimicrobial Peptide Project 
 ==============================
 
 Quarter 1 research duplication for DSC 180A at UCSD
