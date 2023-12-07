@@ -13,13 +13,16 @@ def read(filepath:str, label=None) -> list:
     with open(filepath, 'r') as file:
         for line in file:
             if not line.startswith(">"):
-                # This line contains sequence data
+                # Only appends sequence data
                 output.append(line.strip())
         file.close()
 
     return output
 
 def conv_amino_to_vector(sequence):
+    '''
+    Converts peptide sequences to numerical vectors
+    '''
     conversion_dict = {
         'X':0,
         'A':1,
@@ -47,41 +50,51 @@ def conv_amino_to_vector(sequence):
     return [conversion_dict[c] for c in sequence]
 
 def vectorize(filepath):
-    # Used to convert a single file into vector format
-    # Useful for run.py --mode predict
+    '''
+    Used to convert a single file into vector format
+    Useful for run.py --mode predict
+    '''
     sequences = read(filepath)
     vectors = []
     for i in sequences:
+        # zero-padding vectors of length 200
         padded = i.rjust(200, 'X')
         vectors.append(conv_amino_to_vector(padded))
     return vectors
 
 class Dataset:
     def __init__(self, positive_files, negative_files, batch_size=32, training=False):
-        self.batch_size = batch_size # specifies how big to make batch
-        self.data_train = []
+        # Constructor initializes dataset containing AMP and non-AMP data
+        self.batch_size = batch_size # specifies how big to make each batch
+        self.data_train = [] # list to store processed data
 
+        # Processing AMP data
         for positive_file in positive_files:
             for i in positive_file:
                 padded = i.rjust(200, 'X')
                 self.data_train.append((conv_amino_to_vector(padded), 1))
+        # Processing non-AMP data
         for negative_file in negative_files:
             for i in negative_file:
                 padded = i.rjust(200, 'X')
                 self.data_train.append((conv_amino_to_vector(padded), 0))
-        self.indices = np.arange(len(self.data_train))
+        self.indices = np.arange(len(self.data_train)) # indices used for shuffling
 
         self.training = training
         if self.training:
-            np.random.shuffle(self.indices)
+            np.random.shuffle(self.indices) # shuffle data during training
         
     def __len__(self):
+        # number of batches in dataset
         return int(len(self.data_train)/self.batch_size)
     
     def __getitem__(self, index):
+        # retrieves batch of data given an index
         start = index*self.batch_size
         Xs = []
         Ys = []
+
+        # Loop for creating batch
         for i in self.indices[start:start+self.batch_size]:
             x,y = self.data_train[i]
             Xs.append(x)
@@ -95,6 +108,7 @@ class Dataset:
             self.on_epoch_end()
 
     def on_epoch_end(self):
+        # Shuffles indices at the end of each epoch if training
         if self.training:
             np.random.shuffle(self.indices)
 
@@ -102,6 +116,8 @@ def create_dataset(dataset_types):
     """
     Input: dataset type
     Output: Tensorflow Dataset
+    Description: Convert training, evaluation, and test
+    datasets to tensorflow datasets.
     """
 
     positive_files = []
