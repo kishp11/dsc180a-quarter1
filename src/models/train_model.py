@@ -4,6 +4,7 @@ from keras import layers
 checkpoint_filepath = 'src/models/checkpoints/model_weights'
 
 def __create_model():
+    # define sequential model
     model = keras.Sequential(
         [
             layers.Embedding(200, 128, input_shape = (200,), name="embed"),
@@ -14,12 +15,16 @@ def __create_model():
         ]
     )
 
+    # Compile model using binary crossentropy loss and Adam optimizer
     adam = keras.optimizers.Adam()
     model.compile(loss='binary_crossentropy', metrics = 'accuracy', optimizer=adam)
 
     return model
 
 def train_model(data_train, batch_size=8, epochs=10, save_checkpoint=True):
+    '''
+    trains the model on provided training dataset
+    '''
     model = __create_model()
 
     model.fit(data_train, batch_size=batch_size, epochs=epochs)
