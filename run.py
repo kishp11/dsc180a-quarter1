@@ -11,7 +11,7 @@ def main():
     # Sub-arguments for train mode
     train_parser = parser.add_argument_group('train mode options')
     train_parser.add_argument('--trainset', choices=['train', 'test', 'evaluate'], nargs='+', default=['train'], help='Specify the subset(s) of the data to use in training')
-    train_parser.add_argument('--save', action='store_true', help='[Optional] Choose whether to save the model weights')
+    train_parser.add_argument('--save_weights', action='store_true', help='[Optional] Choose whether to save the model weights')
 
     # Sub-arguments for test mode
     test_parser = parser.add_argument_group('test mode options')
@@ -27,14 +27,16 @@ def main():
 
     if 'train' in args.mode:
         training_dataset = build.create_dataset(args.trainset)  # train, eval, test
-        model = train_model.train_model(training_dataset, save_checkpoint=args.save)
+        model = train_model.train_model(training_dataset, save_checkpoint=args.save_weights)
     else:
         model = train_model.load_model()
     
     if 'test' in args.mode:
         test_dataset = build.create_dataset(args.testset)
         accuracy = predict.evaluate_model(model, test_dataset)
-        print(f'Test Accuracy: {accuracy}')
+        metrics = ['SENS(%)', 'SPEC(%)', 'ACC(%)', 'MCC']
+        for a,m in zip(accuracy[1:], metrics):
+            print(f'{m}: {a}')
 
     if 'predict' in args.mode:
         if args.f is None:
