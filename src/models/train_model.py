@@ -1,40 +1,8 @@
 import keras
 from keras import layers
-
-import keras.backend as K
-from keras.metrics import TruePositives, FalsePositives, TrueNegatives, FalseNegatives
+from src.models.metrics import sens, spec, mcc, acc
 
 checkpoint_filepath = 'src/models/checkpoints/model_weights'
-
-tp = TruePositives()
-fp = FalsePositives()
-tn = TrueNegatives()
-fn = FalseNegatives()
-
-def __TPTNFPFN(y_true, y_pred):
-    return tp(y_true, y_pred), tn(y_true, y_pred), fp(y_true, y_pred), fn(y_true, y_pred)
-
-def __sens(y_true, y_pred):
-    # Assuming binary classification
-    true_positives, true_negatives, false_positives, false_negatives = __TPTNFPFN(y_true, y_pred)
-    sens = true_positives/(true_positives + false_negatives + K.epsilon()) * 100 # K.epsilon() is a small constant that prevents divide by zero errors
-    return sens
-
-def __spec(y_true, y_pred):
-    true_positives, true_negatives, false_positives, false_negatives = __TPTNFPFN(y_true, y_pred)
-    spec = true_negatives/(true_negatives + false_positives + K.epsilon()) * 100
-    return spec
-
-def __acc(y_true, y_pred):
-    true_positives, true_negatives, false_positives, false_negatives = __TPTNFPFN(y_true, y_pred)
-    acc = (true_positives + true_negatives)/(true_positives + false_positives + true_negatives + false_negatives + K.epsilon()) * 100
-    return acc
-
-def __mcc(y_true, y_pred):
-    true_positives, true_negatives, false_positives, false_negatives = __TPTNFPFN(y_true, y_pred)
-    mcc = (((true_positives * true_negatives) - (false_negatives * false_positives)) / 
-            K.sqrt((true_positives + false_negatives) * (true_negatives + false_positives) * (true_positives + false_positives) * (true_negatives + false_negatives)) + K.epsilon())
-    return mcc
 
 def __create_model():
     # define sequential model
@@ -50,7 +18,7 @@ def __create_model():
 
     # Compile model using binary crossentropy loss and Adam optimizer
     adam = keras.optimizers.Adam()
-    model.compile(loss='binary_crossentropy', metrics = [__sens, __spec, __acc, __mcc], optimizer=adam)
+    model.compile(loss='binary_crossentropy', metrics = [sens, spec, acc, mcc], optimizer=adam)
     
     return model
 
