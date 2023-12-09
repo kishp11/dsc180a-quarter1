@@ -20,7 +20,7 @@ def main():
     # Sub-arguments for predict mode
     test_parser = parser.add_argument_group('predict mode options')
     test_parser.add_argument('--f', help='Specify the file path for .fa file')
-    test_parser.add_argument('--p', action='store_true', help='[Optional] Choose whether to print predictions to console')
+    # test_parser.add_argument('--p', action='store_true', help='[Optional] Choose whether to print predictions to console')
     # test_parser.add_argument('--s', default='/', help='[Optional] Saves predictions to given filepath')
 
     args = parser.parse_args()
@@ -44,11 +44,7 @@ def main():
         else:
             # Given a file, output predictions
             prediction = predict.predict_from_file(model, args.f)
-            if args.p:
-                print(prediction)
-            # if args.s:
-            #     # TODO: Save prediction to filepath
-            #     ...
+            print(prediction)
 
 
 if __name__ == '__main__':
