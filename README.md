@@ -28,7 +28,7 @@ Command Line usage:
       train mode options:
       --trainset {train,test,evaluate} [{train,test,evaluate} ...]
                               Specify the subset(s) of the data to use in training
-      --save                [Optional] Choose whether to save the model weights
+      --save_weights        [Optional] Choose whether to save the model weights (default False)
 
       test mode options:
       --testset {train,test,evaluate} [{train,test,evaluate} ...]
@@ -36,8 +36,15 @@ Command Line usage:
 
       predict mode options:
       --f F                 Specify the file path for .fa file
-      --p                   [Optional] Choose whether to print predictions to console
 
+### Examples
+Trains the model using the train and evaluate subsets and reports metrics when tested on the test subset
+
+    python run.py --mode train test --traintest train evaluate --testset test
+    
+If given a .fa file, will output binary AMP predictions to the console
+
+    python run.py --mode predict --f [filepath]
 
 File Organization
 ------------
