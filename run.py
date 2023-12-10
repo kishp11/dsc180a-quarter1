@@ -9,12 +9,15 @@ def main():
     args = parse_arguments(parser)
 
     if 'train' in args.mode:
+        # trains new model with given training datasets
         training_dataset = build.create_dataset(args.trainset)  # train, eval, test
         model = train_model.train_model(training_dataset, save_checkpoint=args.save_weights)
     else:
+        # loads model from saved weights
         model = train_model.load_model()
     
     if 'test' in args.mode:
+        # runs test metrics with given test datasets
         test_dataset = build.create_dataset(args.testset)
         accuracy = predict.evaluate_model(model, test_dataset)
         metrics = ['SENS(%)', 'SPEC(%)', 'ACC(%)', 'MCC']
@@ -22,6 +25,7 @@ def main():
             print(f'{m}: {a}')
 
     if 'predict' in args.mode:
+        # Outputs binary AMP predictions from .fa file
         if args.f is None:
             parser.error('Prediction requires a filepath to be specified with --f')
         else:
