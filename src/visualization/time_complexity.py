@@ -2,6 +2,8 @@
 
 # global variable to determine fake dataset length
 import random
+import numpy
+
 def create_fake_datasets(vector_length, dataset_size):
     vector_length = vector_length
     dataset_size = dataset_size
