@@ -9,8 +9,13 @@ def main():
     model = train_model.load_model()
 
     # creating 10,000 
-    datasets = tc.create_fake_datasets(sizes = range(1, 10000, 100))
+    # dataset_sizes = range(1, 10000, 100)
+    dataset_sizes = [1,2,5]
+    datasets = tc.create_fake_datasets(sizes = dataset_sizes)
     
+    print(datasets)
+    return
+
     runtimes = {}
     for d in datasets:
         # Given a file, output predictions
@@ -23,7 +28,7 @@ def main():
         print(run)
         runtimes[len(d)] = run
     
-    
+
 
     # TODO: make visualization and save chart to file
         # KISHAN DOES THIS PART
