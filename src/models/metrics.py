@@ -7,7 +7,7 @@ tn = TrueNegatives()
 fn = FalseNegatives()
 
 # true and false positives and negatives
-def TPTNFPFN(y_true, y_pred):
+def __TPTNFPFN(y_true, y_pred):
     return tp(y_true, y_pred), tn(y_true, y_pred), fp(y_true, y_pred), fn(y_true, y_pred)
 
 # sensitivity/recall metric
