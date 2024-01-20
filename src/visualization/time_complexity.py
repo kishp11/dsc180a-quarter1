@@ -4,7 +4,7 @@
 import random
 import numpy as np
 
-def create_fake_datasets(vector_length = 150, sizes):
+def create_fake_datasets(sizes, vector_length = 150):
     vector_length = vector_length
     sizes = sizes
     data = np.array([])

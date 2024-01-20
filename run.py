@@ -9,9 +9,9 @@ def main():
     model = train_model.load_model()
 
     # runs test metrics with given test datasets 
-    datasets = tc.create_fake_datasets('NUMBER OF FAKE DATASETS') # TODO
-
-    runtimes = []
+    datasets = tc.create_fake_datasets(sizes = range(1,10000,100))
+    
+    runtimes = {}
     for d in datasets:
         # Given a file, output predictions
         start = time.time()
@@ -25,6 +25,10 @@ def main():
 
     # TODO: make visualization and save chart to file
         # KISHAN DOES THIS PART
+        # plot time taken
+            # x = dataset size
+            # y = time taken
+            # runtimes is a dictionary in the format x: y
 
 
 if __name__ == '__main__':
