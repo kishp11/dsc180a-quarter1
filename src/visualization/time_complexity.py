@@ -4,16 +4,15 @@
 import random
 import numpy as np
 
-def create_fake_datasets(vector_length = 150, sizes):
+def create_fake_datasets(sizes, vector_length = 150):
     vector_length = vector_length
+    padding = numpy.zeros(200-vector_length)
     sizes = sizes
-    data = np.array([])
+    all_datasets = np.array([])
     for i in sizes:
+        data = np.arrya([])
         for r in range(i):
             sequence = np.array([])
-            padding = 200 - vector_length
-            for x in padding:
-                sequence.append(0)
             for j in vector_length:
                 sequence.append(random.randint(1,20))
             data.append(sequence)
