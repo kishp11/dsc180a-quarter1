@@ -12,9 +12,10 @@ def create_fake_datasets(sizes, vector_length=150):
         data = np.array([])
         for r in range(i):
             sequence = np.zeros(200-vector_length)
+            rng = np.array([])
             for j in range(vector_length):
-                rng = random.randint(1,20)
-                sequence = np.append(sequence, rng)
+                rng = np.append(rng, random.randint(1,20))
+            sequence = np.append(rng, sequence)
             print(sequence)
             data = np.append(data, sequence)
         all_datasets = np.append(all_datasets, data)
