@@ -22,7 +22,7 @@ def create_single_dataset(dataset_size, vector_length):
         zeroes = np.zeros(num_padding)
         
         sequence = np.append(line, zeroes)
-        data.append(sequence)
+        data.append(sequence.tolist())
     return data
 
 # Run each fake dataset through model
