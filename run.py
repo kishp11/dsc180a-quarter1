@@ -7,30 +7,30 @@ import time
 import json
 
 def main():
-    model = train_model.load_model()
+    # model = train_model.load_model()
 
-    # creating 10,000 
-    dataset_sizes = range(1, 10000, 100)
-    # dataset_sizes = [2,1]
-    datasets = tc.create_fake_datasets(sizes = dataset_sizes)
+    # # creating 10,000 
+    # dataset_sizes = range(1, 10000, 100)
+    # # dataset_sizes = [2,1]
+    # datasets = tc.create_fake_datasets(sizes = dataset_sizes)
 
-    runtimes = {}
-    for d in datasets:
-        # Given a file, output predictions
-        start = time.time()
-        model.predict(d)
-        end = time.time()
+    # runtimes = {}
+    # for d in datasets:
+    #     # Given a file, output predictions
+    #     start = time.time()
+    #     model.predict(d)
+    #     end = time.time()
 
-        run = end - start
+    #     run = end - start
 
-        print(run)
-        runtimes[len(d)] = run
+    #     print(run)
+    #     runtimes[len(d)] = run
     
-    print(runtimes)
+    # print(runtimes)
 
-    # Save the dictionary to a file
-    with open('runtimes.json', 'w') as file:
-        json.dump(runtimes, file)
+    # # Save the dictionary to a file
+    # with open('runtimes.json', 'w') as file:
+    #     json.dump(runtimes, file)
 
     # TODO: make visualization and save chart to file
         # KISHAN DOES THIS PART
