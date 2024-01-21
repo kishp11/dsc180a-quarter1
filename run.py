@@ -10,10 +10,14 @@ def main():
 
     # creating 10,000 
     # dataset_sizes = range(1, 10000, 100)
-    dataset_sizes = [2]
+    dataset_sizes = [1,2]
     datasets = tc.create_fake_datasets(sizes = dataset_sizes)
     
-    print(datasets)
+    print(len(datasets))
+    print(len(datasets[0]))
+    print(len(datasets[0][0]))
+    print(len(datasets[1]))
+
     return
 
     runtimes = {}

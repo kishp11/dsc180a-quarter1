@@ -7,24 +7,22 @@ import numpy as np
 MAX_ARRAY_SIZE = 200
 
 def create_fake_datasets(sizes, vector_length=150):
-    vector_length = vector_length
-    sizes = sizes
-    all_datasets = np.array([])
+    all_datasets = []
     for size in sizes:
         data = create_single_dataset(size, vector_length)
-        all_datasets = np.append(all_datasets, data, axis = 0)
+        all_datasets.append(data)
     return all_datasets
 
 def create_single_dataset(dataset_size, vector_length):
-    data = np.array([])
-    for r in range(dataset_size):
+    data = []
+    for l in range(dataset_size):
         line = np.random.randint(1, 21, size=vector_length)
     
-        num_padding = MAX_ARRAY_SIZE - dataset_size
+        num_padding = MAX_ARRAY_SIZE - vector_length
         zeroes = np.zeros(num_padding)
         
         sequence = np.append(line, zeroes)
-        data = np.append(data, sequence)
+        data.append(sequence)
     return data
 
 # Run each fake dataset through model
