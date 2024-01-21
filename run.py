@@ -13,7 +13,7 @@ def main():
     dataset_sizes = [2]
     datasets = tc.create_fake_datasets(sizes = dataset_sizes)
     
-    print(datasets[0])
+    print(datasets)
     return
 
     runtimes = {}
