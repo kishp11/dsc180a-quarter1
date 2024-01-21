@@ -6,14 +6,14 @@ import src.visualization.time_complexity as tc
 import time
 
 def main():
-    model = train_model.load_model()
+    # model = train_model.load_model()
 
     # creating 10,000 
     # dataset_sizes = range(1, 10000, 100)
-    dataset_sizes = [1,2,5]
+    dataset_sizes = [2]
     datasets = tc.create_fake_datasets(sizes = dataset_sizes)
     
-    print(datasets)
+    print(datasets[0])
     return
 
     runtimes = {}
